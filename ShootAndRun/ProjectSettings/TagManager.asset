@@ -10,6 +10,7 @@ TagManager:
   - Start
   - StrongWall
   - Wall
+  - Obstacle
   layers:
   - Default
   - TransparentFX

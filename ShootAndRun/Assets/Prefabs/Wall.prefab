@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3854179035794181441}
   - component: {fileID: 3854179035794181440}
   - component: {fileID: 3904546550994534684}
+  - component: {fileID: 124489754215681050}
   m_Layer: 0
   m_Name: Wall
   m_TagString: Wall
@@ -63,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 38f799584c3f25e4d827cf7e05bd6246, type: 2}
+  - {fileID: 2100000, guid: 71639a5ad35354f44aa0c55d62e7d897, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -127,3 +128,28 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1.0000001, z: 51.48157}
   m_Center: {x: 0, y: 0, z: -25.240782}
+--- !u!114 &124489754215681050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3854179035794181470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abd71dcb0056342b08cb3e8851fac00b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 0
+  minSpeed: 1
+  maxSpeed: 5
+  minRotationSpeed: 90
+  maxRotationSpeed: 180
+  fadeWaitTime: 0.5
+  fadeTime: 2
+  useGravity: 1
+  colliderThickness: 0.125
+  useNormals: 0
+  useMeshBoundsCenter: 0
+  allowShadows: 0
+  shadersAlreadyHandleTransparency: 0

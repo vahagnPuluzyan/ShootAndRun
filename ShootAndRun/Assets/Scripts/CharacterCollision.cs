@@ -25,7 +25,7 @@ public class CharacterCollision : MonoBehaviour
             Vibration.Vibrate(70);
             Shooting._instance.cartidges += 3;
         }
-        if (other.tag == "Wall")
+        if (other.tag == "Wall" || other.tag == "Enemy")
         {
             enemy = true;
         }
@@ -39,7 +39,7 @@ public class CharacterCollision : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Wall")
+        if (other.tag == "Wall" || other.tag == "Enemy")
         {
             enemy = false;
         }

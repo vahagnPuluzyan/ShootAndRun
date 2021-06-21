@@ -6,6 +6,8 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] float _speed;
     [SerializeField] float _turnSpeed;
+    [SerializeField] float _maxX;
+
     FloatingJoystick joy;
 
     private float y;
@@ -32,12 +34,12 @@ public class PlayerMovement : MonoBehaviour
             }
             var horizontal = joy.Horizontal;
             positionX += horizontal * _speed * Time.deltaTime;
-            positionX = Mathf.Clamp(positionX,-4.85f,4.85f);
+            positionX = Mathf.Clamp(positionX,-_maxX,_maxX);
 
             y += horizontal * _turnSpeed * Time.deltaTime;
             y = Mathf.Clamp(y, -15, 15);
 
-            if (positionX < 4.85f && positionX > -4.85f)
+            if (positionX < _maxX && positionX > -_maxX)
             {
                 transform.localPosition = new Vector3(positionX,transform.position.y,transform.position.z);
             }
