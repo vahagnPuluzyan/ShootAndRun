@@ -102,7 +102,6 @@ public class Outline : MonoBehaviour {
   void OnEnable() {
         foreach (var renderer in renderers)
         {
-
             // Append outline shaders
             if (renderer.GetComponent<ParticleSystem>() == null)
             {

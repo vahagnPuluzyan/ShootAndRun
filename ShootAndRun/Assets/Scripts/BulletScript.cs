@@ -3,26 +3,28 @@ using UnityEngine;
 public class BulletScript : MonoBehaviour
 {
     ParticleSystem hitFx;
+    Transform character;
 
     private void Start()
     {
+        character = FindObjectOfType<PlayerMovement>().transform;
         hitFx = GetComponentInChildren<ParticleSystem>();
     }
 
-    private void OnCollisionEnter(Collision other)
+    private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Wall" || other.gameObject.tag == "Enemy")
+        if (other.gameObject.tag == "Enemy")
         {
             hitFx.Play();
-            other.gameObject.GetComponent<MeshExploder>().Explode();
-            Destroy(gameObject,0.3f);
+            Destroy(gameObject);
             Destroy(other.gameObject);
-            CharacterCollision._instance.enemy = false;
+            PlayerMovement._instance.shoot = false;
+            PlayerMovement._instance.index++;
         }
-        if (other.gameObject.tag == "Obstacle")
+        if (other.gameObject.tag == "Player")
         {
-            hitFx.Play();
-            Destroy(gameObject, 0.3f);
+            //hitFx.Play();
+            Destroy(gameObject, 0.5f);
         }
     }
 }

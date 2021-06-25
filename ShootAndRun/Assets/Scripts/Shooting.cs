@@ -23,7 +23,7 @@ public class Shooting : MonoBehaviour
 
     private void Update()
     {
-        if (CharacterCollision._instance.enemy)
+        if (PlayerMovement._instance.shoot)
         {
             if (cartidges > 0 && shootAble)
             {

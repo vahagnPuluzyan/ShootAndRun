@@ -1,23 +1,37 @@
-using System.Collections;
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyScript : MonoBehaviour
 {
     public GameObject theBullet;
     public Transform barrelEnd;
+    public List<GameObject> guns;
+    public GameObject skate;
 
     [SerializeField] int bulletSpeed;
     [SerializeField] float despawnTime = 3.0f;
     [SerializeField] float waitBeforeNextShot = 0.25f;
 
+    NavMeshAgent agent;
+    Transform player;
+
     bool shootAble = true;
 
-    private void OnTriggerStay(Collider other)
+    private void Awake()
     {
-        if (other.tag == "Player")
+        player = FindObjectOfType<PlayerMovement>().transform;
+        guns[Random.Range(0, guns.Count - 1)].SetActive(true);
+        agent = GetComponent<NavMeshAgent>();
+    }
+
+    private void Update()
+    {
+        transform.LookAt(player);
+        agent.SetDestination(player.position);
+        if (agent.remainingDistance < 30)
         {
-            transform.LookAt(other.transform);
             if (shootAble)
             {
                 shootAble = false;
@@ -37,9 +51,6 @@ public class EnemyScript : MonoBehaviour
     {
         var bullet = Instantiate(theBullet, barrelEnd.position, barrelEnd.rotation);
         bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * bulletSpeed;
-        Vibration.Vibrate(20);
         Destroy(bullet, despawnTime);
     }
-
-  
 }

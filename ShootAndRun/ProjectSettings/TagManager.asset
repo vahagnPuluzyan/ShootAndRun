@@ -7,10 +7,10 @@ TagManager:
   - Enemy
   - Cartridge
   - Bullet
-  - Start
-  - StrongWall
   - Wall
   - Obstacle
+  - Water
+  - Boost
   layers:
   - Default
   - TransparentFX

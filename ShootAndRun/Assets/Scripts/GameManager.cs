@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         Time.timeScale = 1;
-        characterAnimator.SetBool("Start", true);
+        characterAnimator.SetBool("Run", true);
         startButton.SetActive(false);
         joystick.SetActive(true);
         shopButton.SetActive(false);
@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 0;
         finishUi.SetActive(true);
-        characterAnimator.SetBool("Start",false);
+        characterAnimator.SetBool("Run",false);
     }
 
     public void NextLevel()

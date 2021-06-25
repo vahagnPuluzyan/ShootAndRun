@@ -4,14 +4,18 @@ public class PlayerMovement : MonoBehaviour
 {
     public static PlayerMovement _instance;
 
-    [SerializeField] float _speed;
-    [SerializeField] float _turnSpeed;
+    public float _speed;
+    public GameObject[] enemies;
+
+    [SerializeField] float _turnSpeed = 5;
     [SerializeField] float _maxX;
 
-    FloatingJoystick joy;
+    [HideInInspector] public bool shoot = false;
+    [HideInInspector] public int index;
 
-    private float y;
-    private float positionX;
+    FloatingJoystick joy;
+    float positionX;
+
 
     private void Awake()
     {
@@ -21,44 +25,48 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         _instance = this;
-        y = transform.localEulerAngles.y;
     }
 
     private void Update()
     {
-            transform.position += new Vector3(0, 0 , _speed * Time.deltaTime);
-
-            if (transform.position.y < -0.5f)
+        transform.position += new Vector3(0, 0, _speed * Time.deltaTime);
+        if (index <= enemies.Length)
+        {
+            if (index == enemies.Length)
             {
-                GameManager._instance.GameOver();
+                transform.localEulerAngles = new Vector3(0, 0, 0);
             }
-            var horizontal = joy.Horizontal;
-            positionX += horizontal * _speed * Time.deltaTime;
-            positionX = Mathf.Clamp(positionX,-_maxX,_maxX);
-
-            y += horizontal * _turnSpeed * Time.deltaTime;
-            y = Mathf.Clamp(y, -15, 15);
-
-            if (positionX < _maxX && positionX > -_maxX)
+            else
             {
-                transform.localPosition = new Vector3(positionX,transform.position.y,transform.position.z);
-            }
-
-            if (joy.Horizontal == 0)
-            {
-                if (y < 0)
-                {
-                    y += _turnSpeed * Time.deltaTime;
-                }
-                if (y > 0)
-                {
-                    y -= _turnSpeed * Time.deltaTime;
-                }
-            }
-
-            if (y < 15 && y > -15)
-            {
-                transform.localEulerAngles = new Vector3(0, y, 0);
+                transform.LookAt(enemies[index].transform);
             }
         }
+        //player control 
+        if (transform.position.y < -0.5f)
+        {
+            GameManager._instance.GameOver();
+        }
+        var horizontal = joy.Horizontal;
+        positionX += horizontal * _turnSpeed * Time.deltaTime;
+        positionX = Mathf.Clamp(positionX, -_maxX, _maxX);
+
+        if (positionX < _maxX && positionX > -_maxX)
+        {
+            transform.localPosition = new Vector3(positionX, transform.position.y, transform.position.z);
+        }
+        //shoting
+        if (index <= enemies.Length)
+        {
+            if (index == enemies.Length)
+            {
+                shoot = false;
+            }
+            else
+            {
+                if (Vector3.Distance(enemies[index].transform.position,transform.position) < 30) {
+                    shoot = true;
+                }
+            }
+        }
+    }
 }
